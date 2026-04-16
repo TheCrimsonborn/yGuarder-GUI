@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.example.MainController">
+    <top>
+        <VBox spacing="10.0" BorderPane.alignment="CENTER" styleClass="header">
+            <padding>
+                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+            </padding>
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label text="%app.title" style="-fx-font-weight: bold;">
+                            <font>
+                                <Font size="24.0"/>
+                            </font>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <ComboBox fx:id="languageSelector" onAction="#handleLanguageChange" prefWidth="120.0" styleClass="flat">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Türkçe"/>
+                                    <String fx:value="English"/>
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                    </children>
+                </HBox>
+                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                    <children>
+                        <TextField fx:id="inputJarPath" promptText="JAR..." HBox.hgrow="ALWAYS" editable="false"/>
+                        <Button text="%btn.select_jar" onAction="#handleSelectJar" minWidth="100.0"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </top>
+    <left>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" prefWidth="280.0" minWidth="250.0" style="-fx-background-color: transparent;">
+            <content>
+                <VBox spacing="10.0" style="-fx-background-color: -color-bg-subtle;">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </padding>
+                    <children>
+                        <Label text="%ui.options" style="-fx-font-weight: bold;"/>
+                        <Label text="%ui.shrink_not_supported" style="-fx-font-size: 10px; -fx-text-fill: -color-fg-muted;" wrapText="true"/>
+                        <Separator/>
+                        <Label text="%ui.output_folder"/>
+                        <HBox spacing="5.0">
+                            <TextField fx:id="outputPath" promptText="..." HBox.hgrow="ALWAYS"/>
+                            <Button text="..." onAction="#handleSelectOutputDir">
+                                <tooltip><Tooltip text="%tt.output"/></tooltip>
+                            </Button>
+                        </HBox>
+                        <Separator/>
+                        <Label text="%ui.protect_attributes" style="-fx-font-weight: bold;"/>
+                        <CheckBox fx:id="attrLines" text="%ui.attr.lines" selected="true" wrapText="true">
+                            <tooltip><Tooltip text="%tt.attr.lines"/></tooltip>
+                        </CheckBox>
+                        <CheckBox fx:id="attrSource" text="%ui.attr.source" wrapText="true">
+                            <tooltip><Tooltip text="%tt.attr.source"/></tooltip>
+                        </CheckBox>
+                        <CheckBox fx:id="attrVars" text="%ui.attr.vars" wrapText="true">
+                            <tooltip><Tooltip text="%tt.attr.vars"/></tooltip>
+                        </CheckBox>
+                        <CheckBox fx:id="attrDeprecated" text="%ui.attr.deprecated" wrapText="true">
+                            <tooltip><Tooltip text="%tt.attr.deprecated"/></tooltip>
+                        </CheckBox>
+                        <Separator/>
+                        <Label text="%ui.advanced_hardening" style="-fx-font-weight: bold;"/>
+                        <CheckBox fx:id="replaceClassStrings" text="%ui.opt.replace_strings" selected="true" wrapText="true">
+                            <tooltip><Tooltip text="%tt.hardening.strings"/></tooltip>
+                        </CheckBox>
+                        <Label text="%ui.opt.naming_scheme"/>
+                        <ComboBox fx:id="namingScheme" maxWidth="Infinity">
+                            <tooltip><Tooltip text="%tt.naming"/></tooltip>
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="small"/>
+                                    <String fx:value="mix-ascii"/>
+                                    <String fx:value="digits"/>
+                                </FXCollections>
+                            </items>
+                            <value>
+                                <String fx:value="mix-ascii"/>
+                            </value>
+                        </ComboBox>
+                        <Separator/>
+                        <Label text="%ui.external_libraries" style="-fx-font-weight: bold;"/>
+                        <ListView fx:id="externalLibsList" prefHeight="120.0" minHeight="100.0"/>
+                        <Button text="%btn.add_lib" onAction="#handleAddLibrary" maxWidth="Infinity">
+                            <tooltip><Tooltip text="%tt.lib"/></tooltip>
+                        </Button>
+                        <Region VBox.vgrow="ALWAYS" minHeight="20.0"/>
+                        <Button text="%ui.obfuscate_now" fx:id="runButton" onAction="#handleRunObfuscation" 
+                                maxWidth="Infinity" styleClass="accent" disable="true" minHeight="40.0"/>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </left>
+    <center>
+        <VBox spacing="10.0">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+            <children>
+                <Label text="%ui.select_packages" style="-fx-font-weight: bold;"/>
+                <TreeView fx:id="packageTree" VBox.vgrow="ALWAYS"/>
+            </children>
+        </VBox>
+    </center>
+    <bottom>
+        <VBox prefHeight="180.0" minHeight="100.0">
+            <children>
+                <Label text="%ui.log_console">
+                    <padding>
+                        <Insets left="5.0" top="2.0"/>
+                    </padding>
+                </Label>
+                <TextArea fx:id="logConsole" editable="false" VBox.vgrow="ALWAYS" 
+                          style="-fx-font-family: 'Consolas', monospace; -fx-font-size: 11px;"/>
+            </children>
+        </VBox>
+    </bottom>
+</BorderPane>
