@@ -8,6 +8,8 @@
 
 It is designed to add an extra layer of security to your Software Development Life Cycle (SDLC) and protect your intellectual property (IP) from reverse engineering attempts.
 
+![yGuarder GUI Screenshot](docs/screenshot.png)
+
 ---
 
 ## Core Features
