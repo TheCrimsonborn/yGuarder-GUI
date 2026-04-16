@@ -1,73 +1,73 @@
-# yGuarder GUI 🛡️
+# yGuarder GUI
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![DevSecOps Ready](https://img.shields.io/badge/DevSecOps-Ready-brightgreen.svg)]()
 [![JavaFX](https://img.shields.io/badge/UI-JavaFX-blue.svg)]()
 
-**yGuarder GUI**, yWorks tarafından geliştirilen popüler **yGuard** Java obfuscator aracı için geliştirilmiş, profesyonel, modern ve tamamen bağımsız (standalone) bir grafik arayüzdür. 
+**yGuarder GUI** is a professional, modern, and completely standalone graphical user interface developed for the popular **yGuard** Java obfuscator tool by yWorks.
 
-Yazılım geliştirme süreçlerinize (SDLC) ek bir güvenlik katmanı eklemek ve fikri mülkiyetinizi (IP) tersine mühendislik (reverse engineering) girişimlerinden korumak için tasarlanmıştır.
-
----
-
-## 🚀 Öne Çıkan Özellikler
-
-- **Ultimate Standalone Architecture:** Sistemde Java kurulumuna ihtiyaç duymaz. Kendi içinde Azul Zulu JRE FX çalışma zamanını barındırabilir.
-- **Deep Code Inspection (ASM based):** JAR dosyalarını "yüklemeden" analiz eder. Paket, Sınıf, Metod ve Alan seviyesinde ince ayarlı koruma (keep) kuralları sağlar.
-- **Duyarlı (Responsive) Tasarım:** HiDPI 4K ekranlardan küçük dizüstü bilgisayarlara kadar tüm çözünürlüklerde kusursuz çalışma.
-- **Çoklu Dil Desteği:** Türkçe ve İngilizce dillerinde tam yerelleştirme.
-- **DevSecOps Dostu:** Docker ve PowerShell odaklı yapılandırma ile CI/CD süreçlerine kolay entegrasyon.
+It is designed to add an extra layer of security to your Software Development Life Cycle (SDLC) and protect your intellectual property (IP) from reverse engineering attempts.
 
 ---
 
-## 🛠️ DevSecOps Entegrasyonu
+## Core Features
 
-yGuarder GUI, sadece bir masaüstü aracı değil, aynı zamanda boru hattınızın (pipeline) bir parçasıdır.
+- **Ultimate Standalone Architecture:** Does not require a Java installation on the host system. It can bundle its own Azul Zulu JRE FX runtime.
+- **Deep Code Inspection (ASM based):** Analyzes JAR files without "loading" them. Provides fine-tuned protection (keep) rules at the Package, Class, Method, and Field levels.
+- **Responsive Design:** Seamless operation across all resolutions, from High-DPI 4K displays to small laptops.
+- **Multi-language Support:** Complete localization in Turkish and English.
+- **DevSecOps Ready:** Easy integration into CI/CD processes with Docker and PowerShell-oriented configuration.
 
-### 🐳 Docker ile Build
-Konteynerize edilmiş build süreciyle, geliştirme ortamından bağımsız olarak kararlı çıktılar alabilirsiniz:
+---
+
+## DevSecOps Integration
+
+yGuarder GUI is more than just a desktop tool; it is a component of your delivery pipeline.
+
+### Build with Docker
+You can obtain stable build outputs independent of the development environment using a containerized build process:
 ```bash
 docker-compose up --build
 ```
 
-### ⚙️ CI/CD Pipeline
-Pipeline aşamalarınızda `YGuardEngine` yapısını kullanarak Java çıktılarınızı otomatik olarak karıştırabilirsiniz. Standalone yapısı sayesinde Jenkins, GitLab CI veya GitHub Actions üzerinde herhangi bir ortam kurulumu gerektirmeden çalıştırılabilir.
+### CI/CD Pipeline
+You can automatically obfuscate your Java outputs using the `YGuardEngine` structure in your pipeline stages. Thanks to its standalone nature, it can run on Jenkins, GitLab CI, or GitHub Actions without requiring any environment setup.
 
 ---
 
-## 📂 Proje Yapısı
+## Project Structure
 
-- `src/`: JavaFX kaynak kodu (The Bridge mimarisi ile Motor ve UI ayrılmıştır).
-- `Dockerfile` & `docker-compose.yml`: DevOps süreçleri için hazır konteyner yapılandırması.
-- `download_deps.ps1`: Kısıtlı ağ ortamları için bağımlılık yöneticisi.
-- `install_runtime.ps1`: Taşınabilir çalışma zamanı (portable runtime) kurulum scripti.
+- `src/`: JavaFX source code (Engine and UI are separated via The Bridge architecture).
+- `Dockerfile` & `docker-compose.yml`: Ready-to-use container configuration for DevOps processes.
+- `download_deps.ps1`: Dependency manager for restricted network environments.
+- `install_runtime.ps1`: Setup script for the portable runtime.
 
 ---
 
-## 🏗️ Geliştiriciler İçin Derleme
+## Building for Developers
 
-Projeyi yerel ortamda derlemek için:
+To build the project in a local environment:
 
-1.  Bağımlılıkları indirin:
+1.  Download dependencies:
     ```powershell
     .\download_deps.ps1
     ```
-2.  Maven ile hata ayıklayın veya manuel derleyin:
+2.  Debug with Maven or build manually:
     ```powershell
     mvn clean package
     ```
 
 ---
 
-## 📄 Lisans
+## License
 
-Bu proje **MIT Lisansı** altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakınız.
-
----
-
-## 🤝 Katıda Bulunma
-
-Hata bildirimleri, özellik önerileri ve pull request'ler her zaman bekleriz. DevSecOps araç setini birlikte güçlendirelim!
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
 
 ---
-*Developed with ❤️ for the DevSecOps community.*
+
+## Contributing
+
+Bug reports, feature suggestions, and pull requests are always welcome. Let's strengthen the DevSecOps toolset together!
+
+---
+*Developed for the DevSecOps community.*
