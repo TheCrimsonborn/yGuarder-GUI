@@ -38,8 +38,9 @@ buildNumber.properties
 .settings/
 .factorypath
 
-# VS Code
-.vscode/
+# VS Code (keep settings.json for project classpath config)
+.vscode/*
+!.vscode/settings.json
 
 # Binaries / Dependencies
 lib/
