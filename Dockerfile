@@ -25,13 +25,7 @@ RUN mkdir -p target/classes/com/example && \
     cp src/main/resources/com/example/*.fxml   target/classes/com/example/ && \
     cp src/main/resources/com/example/*.properties target/classes/com/example/ && \
     CP=$(find lib -name "*.jar" | tr '\n' ':') && \
-    javac -cp "$CP" \
-      src/main/java/com/example/Launcher.java \
-      src/main/java/com/example/MainApp.java \
-      src/main/java/com/example/MainController.java \
-      src/main/java/com/example/util/JarInspector.java \
-      src/main/java/com/example/core/YGuardEngine.java \
-      -d target/classes && \
+    javac -cp "$CP" $(find src/main/java -name "*.java") -d target/classes && \
     jar cfe target/yguarder-gui.jar com.example.Launcher -C target/classes .
 
 # Stage 2: Minimal runtime image (headless - for CI/server-side use)
