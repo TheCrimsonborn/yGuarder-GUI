@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
-import org.apache.tools.ant.helper.ProjectHelper2;
+import org.apache.tools.ant.ProjectHelper;
 
 public class YGuardEngine {
 
@@ -22,7 +22,7 @@ public class YGuardEngine {
 
         Project project = new Project();
         project.init();
-        ProjectHelper2.configureProject(project, configFile);
+        ProjectHelper.configureProject(project, configFile);
         
         try {
             project.executeTarget(project.getDefaultTarget());

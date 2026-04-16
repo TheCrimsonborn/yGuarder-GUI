@@ -1,5 +1,9 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
-    ]
+    ],
+    "sonarlint.connectedMode.project": {
+        "connectionId": "thecrimsonborn",
+        "projectKey": "TheCrimsonborn_yGuarder-GUI"
+    }
 }
