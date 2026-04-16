@@ -103,31 +103,40 @@ public class MainController {
         new Thread(() -> {
             try {
                 Map<String, List<ClassInfo>> structure = JarInspector.inspectJar(jarPath);
-                Platform.runLater(() -> {
-                    CheckBoxTreeItem<String> root = new CheckBoxTreeItem<>(resources.getString("ui.select_packages"));
-                    root.setExpanded(true);
-
-                    for (Map.Entry<String, List<ClassInfo>> entry : structure.entrySet()) {
-                        CheckBoxTreeItem<String> pkgItem = new CheckBoxTreeItem<>("pkg:" + entry.getKey());
-                        for (ClassInfo ci : entry.getValue()) {
-                            CheckBoxTreeItem<String> classItem = new CheckBoxTreeItem<>("class:" + ci.name);
-                            for (String m : ci.methods) {
-                                classItem.getChildren().add(new CheckBoxTreeItem<>("method:" + ci.name + "#" + m));
-                            }
-                            for (String f : ci.fields) {
-                                classItem.getChildren().add(new CheckBoxTreeItem<>("field:" + ci.name + "#" + f));
-                            }
-                            pkgItem.getChildren().add(classItem);
-                        }
-                        root.getChildren().add(pkgItem);
-                    }
-                    packageTree.setRoot(root);
-                    log(MessageFormat.format(resources.getString("log.scanned"), structure.size()));
-                });
+                Platform.runLater(() -> buildTree(structure));
             } catch (Exception e) {
                 Platform.runLater(() -> log(MessageFormat.format(resources.getString("log.error"), e.getMessage())));
             }
         }).start();
+    }
+
+    private void buildTree(Map<String, List<ClassInfo>> structure) {
+        CheckBoxTreeItem<String> root = new CheckBoxTreeItem<>(resources.getString("ui.select_packages"));
+        root.setExpanded(true);
+        for (Map.Entry<String, List<ClassInfo>> entry : structure.entrySet()) {
+            root.getChildren().add(buildPackageItem(entry.getKey(), entry.getValue()));
+        }
+        packageTree.setRoot(root);
+        log(MessageFormat.format(resources.getString("log.scanned"), structure.size()));
+    }
+
+    private CheckBoxTreeItem<String> buildPackageItem(String pkgName, List<ClassInfo> classes) {
+        CheckBoxTreeItem<String> pkgItem = new CheckBoxTreeItem<>("pkg:" + pkgName);
+        for (ClassInfo ci : classes) {
+            pkgItem.getChildren().add(buildClassItem(ci));
+        }
+        return pkgItem;
+    }
+
+    private CheckBoxTreeItem<String> buildClassItem(ClassInfo ci) {
+        CheckBoxTreeItem<String> classItem = new CheckBoxTreeItem<>("class:" + ci.name);
+        for (String m : ci.methods) {
+            classItem.getChildren().add(new CheckBoxTreeItem<>("method:" + ci.name + "#" + m));
+        }
+        for (String f : ci.fields) {
+            classItem.getChildren().add(new CheckBoxTreeItem<>("field:" + ci.name + "#" + f));
+        }
+        return classItem;
     }
 
     @FXML
