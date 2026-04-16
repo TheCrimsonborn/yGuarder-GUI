@@ -1,0 +1,76 @@
+name: Docker Publish to GitHub Packages
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push-image:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download dependencies for Docker build
+        run: |
+          mkdir -p lib
+          BASE="https://repo1.maven.org/maven2"
+          FILES=(
+            "org/openjfx/javafx-controls/21/javafx-controls-21-linux.jar"
+            "org/openjfx/javafx-graphics/21/javafx-graphics-21-linux.jar"
+            "org/openjfx/javafx-base/21/javafx-base-21-linux.jar"
+            "org/openjfx/javafx-fxml/21/javafx-fxml-21-linux.jar"
+            "io/github/mkpaz/atlantafx-base/2.0.1/atlantafx-base-2.0.1.jar"
+            "com/yworks/yguard/5.0.0/yguard-5.0.0.jar"
+            "org/ow2/asm/asm/9.6/asm-9.6.jar"
+            "org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar"
+            "org/slf4j/slf4j-simple/2.0.9/slf4j-simple-2.0.9.jar"
+            "org/apache/ant/ant/1.10.14/ant-1.10.14.jar"
+            "org/apache/ant/ant-launcher/1.10.14/ant-launcher-1.10.14.jar"
+          )
+          for path in "${FILES[@]}"; do
+            filename=$(basename "$path")
+            echo "Downloading $filename..."
+            curl -fsSL "$BASE/$path" -o "lib/$filename"
+          done
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags and labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=edge,branch=main
+            type=sha,prefix=sha-
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

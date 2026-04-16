@@ -1,0 +1,103 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-and-release:
+    name: Build Portable Bundle and Publish Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Download dependencies
+        run: |
+          mkdir -p lib
+          BASE="https://repo1.maven.org/maven2"
+          declare -A DEPS=(
+            ["javafx-controls-21-linux.jar"]="$BASE/org/openjfx/javafx-controls/21/javafx-controls-21-linux.jar"
+            ["javafx-graphics-21-linux.jar"]="$BASE/org/openjfx/javafx-graphics/21/javafx-graphics-21-linux.jar"
+            ["javafx-base-21-linux.jar"]="$BASE/org/openjfx/javafx-base/21/javafx-base-21-linux.jar"
+            ["javafx-fxml-21-linux.jar"]="$BASE/org/openjfx/javafx-fxml/21/javafx-fxml-21-linux.jar"
+            ["atlantafx-base-2.0.1.jar"]="$BASE/io/github/mkpaz/atlantafx-base/2.0.1/atlantafx-base-2.0.1.jar"
+            ["yguard-5.0.0.jar"]="$BASE/com/yworks/yguard/5.0.0/yguard-5.0.0.jar"
+            ["asm-9.6.jar"]="$BASE/org/ow2/asm/asm/9.6/asm-9.6.jar"
+            ["slf4j-api-2.0.9.jar"]="$BASE/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar"
+            ["slf4j-simple-2.0.9.jar"]="$BASE/org/slf4j/slf4j-simple/2.0.9/slf4j-simple-2.0.9.jar"
+            ["ant-1.10.14.jar"]="$BASE/org/apache/ant/ant/1.10.14/ant-1.10.14.jar"
+            ["ant-launcher-1.10.14.jar"]="$BASE/org/apache/ant/ant-launcher/1.10.14/ant-launcher-1.10.14.jar"
+          )
+          for filename in "${!DEPS[@]}"; do
+            echo "Downloading $filename..."
+            curl -fsSL "${DEPS[$filename]}" -o "lib/$filename"
+          done
+
+      - name: Build application
+        run: |
+          mkdir -p target/classes/com/example
+          cp src/main/resources/com/example/*.fxml target/classes/com/example/
+          cp src/main/resources/com/example/*.properties target/classes/com/example/
+          CP=$(find lib -name "*.jar" | tr '\n' ':')
+          javac -cp "$CP" \
+            src/main/java/com/example/Launcher.java \
+            src/main/java/com/example/MainApp.java \
+            src/main/java/com/example/MainController.java \
+            src/main/java/com/example/util/JarInspector.java \
+            src/main/java/com/example/core/YGuardEngine.java \
+            -d target/classes
+          jar cfe target/yguarder-gui.jar com.example.Launcher -C target/classes .
+
+      - name: Package portable bundle
+        run: |
+          VERSION="${GITHUB_REF_NAME}"
+          BUNDLE="yGuarder-${VERSION}-portable-windows"
+          mkdir -p "$BUNDLE/lib"
+          cp target/yguarder-gui.jar "$BUNDLE/"
+          # Include Windows JARs for the portable bundle
+          curl -fsSL "https://repo1.maven.org/maven2/org/openjfx/javafx-controls/21/javafx-controls-21-win.jar" -o "$BUNDLE/lib/javafx-controls-21-win.jar"
+          curl -fsSL "https://repo1.maven.org/maven2/org/openjfx/javafx-graphics/21/javafx-graphics-21-win.jar" -o "$BUNDLE/lib/javafx-graphics-21-win.jar"
+          curl -fsSL "https://repo1.maven.org/maven2/org/openjfx/javafx-base/21/javafx-base-21-win.jar" -o "$BUNDLE/lib/javafx-base-21-win.jar"
+          curl -fsSL "https://repo1.maven.org/maven2/org/openjfx/javafx-fxml/21/javafx-fxml-21-win.jar"  -o "$BUNDLE/lib/javafx-fxml-21-win.jar"
+          cp lib/atlantafx-base-2.0.1.jar "$BUNDLE/lib/"
+          cp lib/yguard-5.0.0.jar "$BUNDLE/lib/"
+          cp lib/asm-9.6.jar "$BUNDLE/lib/"
+          cp lib/slf4j-api-2.0.9.jar "$BUNDLE/lib/"
+          cp lib/slf4j-simple-2.0.9.jar "$BUNDLE/lib/"
+          cp lib/ant-1.10.14.jar "$BUNDLE/lib/"
+          cp lib/ant-launcher-1.10.14.jar "$BUNDLE/lib/"
+          cp yGuarder-Portable/run.bat "$BUNDLE/" || true
+          cp install_runtime.ps1 "$BUNDLE/"
+          zip -r "${BUNDLE}.zip" "$BUNDLE/"
+          echo "BUNDLE_ZIP=${BUNDLE}.zip" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "yGuarder GUI ${{ github.ref_name }}"
+          body: |
+            ## yGuarder GUI ${{ github.ref_name }}
+
+            ### Installation
+            1. Download the zip archive below.
+            2. Extract to any directory.
+            3. Run `install_runtime.ps1` once to download the bundled Java 21 runtime.
+            4. Launch the application with `run.bat`.
+
+            ### Requirements
+            - Windows x64
+            - Internet access for first-time runtime install (or manually place a Zulu JRE FX 21 into the `runtime/` folder)
+          files: ${{ env.BUNDLE_ZIP }}
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-rc') || contains(github.ref_name, '-beta') || contains(github.ref_name, '-alpha') }}
