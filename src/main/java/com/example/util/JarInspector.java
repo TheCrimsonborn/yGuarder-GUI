@@ -6,12 +6,17 @@ import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 public class JarInspector {
+
+    private JarInspector() {
+        throw new IllegalStateException("Utility class");
+    }
 
     public static class ClassInfo {
         public String name;
@@ -23,7 +28,7 @@ public class JarInspector {
         }
     }
 
-    public static Map<String, List<ClassInfo>> inspectJar(String jarPath) throws Exception {
+    public static Map<String, List<ClassInfo>> inspectJar(String jarPath) throws IOException {
         Map<String, List<ClassInfo>> packageToClasses = new TreeMap<>();
         
         try (JarFile jarFile = new JarFile(jarPath)) {
@@ -63,7 +68,7 @@ public class JarInspector {
     }
 
     // Keep legacy support for initial scan if needed
-    public static Set<String> listPackages(String jarPath) throws Exception {
+    public static Set<String> listPackages(String jarPath) throws IOException {
         return inspectJar(jarPath).keySet();
     }
 }

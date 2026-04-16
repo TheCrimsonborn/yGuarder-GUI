@@ -1,6 +1,8 @@
 package com.example.core;
 
+import com.example.exception.ObfuscationException;
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.List;
@@ -9,13 +11,17 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
 
 public class YGuardEngine {
+    
+    private YGuardEngine() {
+        throw new IllegalStateException("Utility class");
+    }
 
     public static void run(String inJar, String outJar, 
                           Collection<String> keepRules, 
                           List<String> attributesToKeep,
                           List<String> externalLibs,
                           boolean replaceClassStrings,
-                          String namingScheme) throws Exception {
+                          String namingScheme) throws ObfuscationException, IOException {
         
         File configFile = File.createTempFile("yguard-config", ".xml");
         generateAntXml(configFile, inJar, outJar, keepRules, attributesToKeep, externalLibs, replaceClassStrings, namingScheme);
@@ -27,7 +33,7 @@ public class YGuardEngine {
         try {
             project.executeTarget(project.getDefaultTarget());
         } catch (BuildException e) {
-            throw new Exception("Obfuscation failed: " + e.getMessage(), e);
+            throw new ObfuscationException("Obfuscation failed: " + e.getMessage(), e);
         } finally {
             configFile.delete();
         }
@@ -38,7 +44,7 @@ public class YGuardEngine {
                                      List<String> attributesToKeep,
                                      List<String> externalLibs,
                                      boolean replaceClassStrings,
-                                     String namingScheme) throws Exception {
+                                     String namingScheme) throws IOException {
         try (PrintWriter writer = new PrintWriter(file)) {
             writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             writer.println("<project name=\"yGuardTask\" default=\"obfuscate\">");

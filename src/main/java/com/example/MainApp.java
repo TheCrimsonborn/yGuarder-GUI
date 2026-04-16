@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -33,7 +34,7 @@ public class MainApp extends Application {
         setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
     }
 
-    public static void loadView() throws Exception {
+    public static void loadView() throws IOException {
         ResourceBundle bundle = ResourceBundle.getBundle("com.example.messages", currentLocale);
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("/com/example/main-view.fxml"), bundle);
         Pane root = fxmlLoader.load();
