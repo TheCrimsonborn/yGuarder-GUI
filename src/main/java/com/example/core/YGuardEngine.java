@@ -16,15 +16,10 @@ public class YGuardEngine {
         throw new IllegalStateException("Utility class");
     }
 
-    public static void run(String inJar, String outJar, 
-                          Collection<String> keepRules, 
-                          List<String> attributesToKeep,
-                          List<String> externalLibs,
-                          boolean replaceClassStrings,
-                          String namingScheme) throws ObfuscationException, IOException {
+    public static void run(ObfuscationTask task) throws ObfuscationException, IOException {
         
         File configFile = File.createTempFile("yguard-config", ".xml");
-        generateAntXml(configFile, inJar, outJar, keepRules, attributesToKeep, externalLibs, replaceClassStrings, namingScheme);
+        generateAntXml(configFile, task);
 
         Project project = new Project();
         project.init();
@@ -35,41 +30,38 @@ public class YGuardEngine {
         } catch (BuildException e) {
             throw new ObfuscationException("Obfuscation failed: " + e.getMessage(), e);
         } finally {
-            configFile.delete();
+            if (configFile.exists() && !configFile.delete()) {
+                configFile.deleteOnExit();
+            }
         }
     }
 
-    private static void generateAntXml(File file, String inJar, String outJar, 
-                                     Collection<String> keepRules, 
-                                     List<String> attributesToKeep,
-                                     List<String> externalLibs,
-                                     boolean replaceClassStrings,
-                                     String namingScheme) throws IOException {
+    private static void generateAntXml(File file, ObfuscationTask task) throws IOException {
         try (PrintWriter writer = new PrintWriter(file)) {
             writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             writer.println("<project name=\"yGuardTask\" default=\"obfuscate\">");
             writer.println("  <taskdef name=\"yguard\" classname=\"com.yworks.yguard.YGuardTask\"/>");
             writer.println("  <target name=\"obfuscate\">");
             writer.println("    <yguard>");
-            writer.println("      <inoutpair in=\"" + inJar + "\" out=\"" + outJar + "\"/>");
+            writer.println("      <inoutpair in=\"" + task.getInJar() + "\" out=\"" + task.getOutJar() + "\"/>");
             
-            if (!externalLibs.isEmpty()) {
+            if (!task.getExternalLibs().isEmpty()) {
                 writer.println("      <externalclasses>");
                 writer.println("        <fileset dir=\".\">");
-                for (String lib : externalLibs) {
+                for (String lib : task.getExternalLibs()) {
                     writer.println("          <include name=\"" + lib + "\"/>");
                 }
                 writer.println("        </fileset>");
                 writer.println("      </externalclasses>");
             }
 
-            writer.println("      <rename mainclass=\"com.example.Main\" logfile=\"yguard-mapping.xml\" replaceClassNameStrings=\"" + replaceClassStrings + "\">");
-            writer.println("        <property name=\"naming-scheme\" value=\"" + namingScheme + "\"/>");
+            writer.println("      <rename mainclass=\"com.example.Main\" logfile=\"yguard-mapping.xml\" replaceClassNameStrings=\"" + task.isReplaceClassNameStrings() + "\">");
+            writer.println("        <property name=\"naming-scheme\" value=\"" + task.getNamingScheme() + "\"/>");
             writer.print("        <keep>");
-            writeKeepRules(writer, keepRules);
+            writeKeepRules(writer, task.getKeepRules());
             writer.println("        </keep>");
             
-            for (String attr : attributesToKeep) {
+            for (String attr : task.getAttributesToKeep()) {
                 writer.println("        <attribute name=\"" + attr + "\"/>");
             }
             

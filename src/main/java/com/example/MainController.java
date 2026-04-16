@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.core.ObfuscationTask;
 import com.example.core.YGuardEngine;
 import com.example.util.JarInspector;
 import com.example.util.JarInspector.ClassInfo;
@@ -159,9 +160,13 @@ public class MainController {
         log(resources.getString("log.started"));
         runButton.setDisable(true);
 
+        ObfuscationTask task = new ObfuscationTask(
+            selectedJar.getAbsolutePath(), outJar, keepRules, attributes, externalLibs, replaceStrings, scheme
+        );
+
         new Thread(() -> {
             try {
-                YGuardEngine.run(selectedJar.getAbsolutePath(), outJar, keepRules, attributes, externalLibs, replaceStrings, scheme);
+                YGuardEngine.run(task);
                 Platform.runLater(() -> {
                     log(MessageFormat.format(resources.getString("log.success"), outJar));
                     runButton.setDisable(false);
