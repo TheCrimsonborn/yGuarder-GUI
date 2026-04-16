@@ -61,6 +61,14 @@
             <systemPath>${lib.dir}/yguard-5.0.0.jar</systemPath>
         </dependency>
 
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>9.6</version>
+            <scope>system</scope>
+            <systemPath>${lib.dir}/asm-9.6.jar</systemPath>
+        </dependency>
+
         <!-- Logging and Ant (Needed for yGuard Engine) -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -70,11 +78,25 @@
             <systemPath>${lib.dir}/slf4j-api-2.0.9.jar</systemPath>
         </dependency>
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.9</version>
+            <scope>system</scope>
+            <systemPath>${lib.dir}/slf4j-simple-2.0.9.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
             <version>1.10.14</version>
             <scope>system</scope>
             <systemPath>${lib.dir}/ant-1.10.14.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-launcher</artifactId>
+            <version>1.10.14</version>
+            <scope>system</scope>
+            <systemPath>${lib.dir}/ant-launcher-1.10.14.jar</systemPath>
         </dependency>
     </dependencies>
 

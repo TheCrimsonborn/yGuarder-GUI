@@ -4,8 +4,6 @@ import com.example.core.YGuardEngine;
 import com.example.util.JarInspector;
 import com.example.util.JarInspector.ClassInfo;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTreeCell;
@@ -14,7 +12,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.*;
 

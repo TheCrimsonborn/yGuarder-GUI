@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 public class MainApp extends Application {
 
     private static Stage primaryStage;
-    private static Locale currentLocale = new Locale("tr");
+    private static Locale currentLocale = Locale.of("tr");
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -38,7 +38,7 @@ public class MainApp extends Application {
     }
 
     public static void setLanguage(String lang) {
-        currentLocale = new Locale(lang);
+        currentLocale = Locale.of(lang);
         try {
             loadView();
         } catch (Exception e) {
