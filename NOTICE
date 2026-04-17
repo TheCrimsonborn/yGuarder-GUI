@@ -1,0 +1,33 @@
+yGuarder GUI
+Copyright (c) 2026 yGuarder Contributors
+
+This product includes software developed by the following third parties:
+
+* JavaFX (OpenJFX) 21.0.2
+  - javafx-controls
+  - javafx-graphics
+  - javafx-base
+  - javafx-fxml
+  Licensed under the GNU General Public License, version 2, with the Classpath Exception.
+  License text: licenses/LICENSE-JavaFX.txt
+  Source code: https://github.com/openjdk/jfx
+
+* AtlantaFX 2.0.1
+  Licensed under the MIT License.
+  Source code: https://github.com/mkpaz/atlantafx
+
+* yGuard 5.0.0
+  Developed by yWorks GmbH.
+  Website: https://www.yworks.com/products/yguard
+
+* ASM 9.6
+  Licensed under the BSD 3-Clause License.
+  Source code: https://gitlab.ow2.org/asm/asm
+
+* SLF4J 2.0.9
+  Licensed under the MIT License.
+  Source code: https://github.com/qos-ch/slf4j
+
+* Apache Ant 1.10.14
+  Licensed under the Apache License 2.0.
+  Source code: https://github.com/apache/ant
