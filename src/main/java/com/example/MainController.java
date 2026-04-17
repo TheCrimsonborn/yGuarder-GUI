@@ -195,6 +195,6 @@ public class MainController {
     }
 
     private void log(String msg) {
-        Platform.runLater(() -> logConsole.appendText("[" + new java.util.Date().toString() + "] " + msg + "\n"));
+        Platform.runLater(() -> logConsole.appendText("[" + new java.util.Date() + "] " + msg + "\n"));
     }
 }

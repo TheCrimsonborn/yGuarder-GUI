@@ -4,16 +4,16 @@ if (!(Test-Path $libDir)) { New-Item -ItemType Directory -Path $libDir }
 $base = "https://repo1.maven.org/maven2"
 $deps = @(
     # JavaFX Modules (win)
-    "$base/org/openjfx/javafx-controls/21/javafx-controls-21-win.jar",
-    "$base/org/openjfx/javafx-graphics/21/javafx-graphics-21-win.jar",
-    "$base/org/openjfx/javafx-base/21/javafx-base-21-win.jar",
-    "$base/org/openjfx/javafx-fxml/21/javafx-fxml-21-win.jar",
+    "$base/org/openjfx/javafx-controls/21.0.2/javafx-controls-21.0.2-win.jar",
+    "$base/org/openjfx/javafx-graphics/21.0.2/javafx-graphics-21.0.2-win.jar",
+    "$base/org/openjfx/javafx-base/21.0.2/javafx-base-21.0.2-win.jar",
+    "$base/org/openjfx/javafx-fxml/21.0.2/javafx-fxml-21.0.2-win.jar",
     
     # JavaFX Modules (linux - for Docker container build environment)
-    "$base/org/openjfx/javafx-controls/21/javafx-controls-21-linux.jar",
-    "$base/org/openjfx/javafx-graphics/21/javafx-graphics-21-linux.jar",
-    "$base/org/openjfx/javafx-base/21/javafx-base-21-linux.jar",
-    "$base/org/openjfx/javafx-fxml/21/javafx-fxml-21-linux.jar",
+    "$base/org/openjfx/javafx-controls/21.0.2/javafx-controls-21.0.2-linux.jar",
+    "$base/org/openjfx/javafx-graphics/21.0.2/javafx-graphics-21.0.2-linux.jar",
+    "$base/org/openjfx/javafx-base/21.0.2/javafx-base-21.0.2-linux.jar",
+    "$base/org/openjfx/javafx-fxml/21.0.2/javafx-fxml-21.0.2-linux.jar",
 
     # Themes & Engine
     "$base/io/github/mkpaz/atlantafx-base/2.0.1/atlantafx-base-2.0.1.jar",

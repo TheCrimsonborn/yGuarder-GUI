@@ -9,7 +9,7 @@
 
     <properties>
         <maven.compiler.release>21</maven.compiler.release>
-        <javafx.version>21</javafx.version>
+        <javafx.version>21.0.2</javafx.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lib.dir>${project.basedir}/lib</lib.dir>
     </properties>
@@ -21,28 +21,28 @@
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
             <scope>system</scope>
-            <systemPath>${lib.dir}/javafx-controls-21-win.jar</systemPath>
+            <systemPath>${lib.dir}/javafx-controls-21.0.2-win.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
             <version>${javafx.version}</version>
             <scope>system</scope>
-            <systemPath>${lib.dir}/javafx-graphics-21-win.jar</systemPath>
+            <systemPath>${lib.dir}/javafx-graphics-21.0.2-win.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
             <version>${javafx.version}</version>
             <scope>system</scope>
-            <systemPath>${lib.dir}/javafx-base-21-win.jar</systemPath>
+            <systemPath>${lib.dir}/javafx-base-21.0.2-win.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
             <scope>system</scope>
-            <systemPath>${lib.dir}/javafx-fxml-21-win.jar</systemPath>
+            <systemPath>${lib.dir}/javafx-fxml-21.0.2-win.jar</systemPath>
         </dependency>
 
         <dependency>

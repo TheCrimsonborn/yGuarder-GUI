@@ -8,10 +8,10 @@ COPY src ./src
 
 # Download dependencies from Maven Central into lib/
 RUN BASE="https://repo1.maven.org/maven2" && mkdir -p lib && \
-    curl -fsSL "$BASE/org/openjfx/javafx-controls/21/javafx-controls-21-linux.jar" -o lib/javafx-controls-21-linux.jar && \
-    curl -fsSL "$BASE/org/openjfx/javafx-graphics/21/javafx-graphics-21-linux.jar" -o lib/javafx-graphics-21-linux.jar && \
-    curl -fsSL "$BASE/org/openjfx/javafx-base/21/javafx-base-21-linux.jar"          -o lib/javafx-base-21-linux.jar && \
-    curl -fsSL "$BASE/org/openjfx/javafx-fxml/21/javafx-fxml-21-linux.jar"          -o lib/javafx-fxml-21-linux.jar && \
+    curl -fsSL "$BASE/org/openjfx/javafx-controls/21.0.2/javafx-controls-21.0.2-linux.jar" -o lib/javafx-controls-21.0.2-linux.jar && \
+    curl -fsSL "$BASE/org/openjfx/javafx-graphics/21.0.2/javafx-graphics-21.0.2-linux.jar" -o lib/javafx-graphics-21.0.2-linux.jar && \
+    curl -fsSL "$BASE/org/openjfx/javafx-base/21.0.2/javafx-base-21.0.2-linux.jar"          -o lib/javafx-base-21.0.2-linux.jar && \
+    curl -fsSL "$BASE/org/openjfx/javafx-fxml/21.0.2/javafx-fxml-21.0.2-linux.jar"          -o lib/javafx-fxml-21.0.2-linux.jar && \
     curl -fsSL "$BASE/io/github/mkpaz/atlantafx-base/2.0.1/atlantafx-base-2.0.1.jar" -o lib/atlantafx-base-2.0.1.jar && \
     curl -fsSL "$BASE/com/yworks/yguard/5.0.0/yguard-5.0.0.jar"                     -o lib/yguard-5.0.0.jar && \
     curl -fsSL "$BASE/org/ow2/asm/asm/9.6/asm-9.6.jar"                              -o lib/asm-9.6.jar && \
