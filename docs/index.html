@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="yGuarder GUI — A professional, standalone Java bytecode obfuscation tool powered by yGuard 5. Engineered for DevSecOps pipelines with zero-dependency portable deployment.">
+    <meta name="keywords" content="Java obfuscator, yGuard, JavaFX, DevSecOps, bytecode protection, reverse engineering, CI/CD, open source">
+    <meta name="author" content="TheCrimsonborn">
+    <meta property="og:title" content="yGuarder GUI — Professional Java Obfuscator">
+    <meta property="og:description" content="Standalone, portable Java obfuscation with a modern dark-mode GUI. DevSecOps-ready with Docker and CI/CD support.">
+    <meta property="og:image" content="https://thecrimsonborn.github.io/yGuarder-GUI/assets/og-image.png">
+    <meta property="og:url" content="https://thecrimsonborn.github.io/yGuarder-GUI/">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>yGuarder GUI — Professional Java Obfuscator</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav id="navbar" class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="nav-logo">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="28" height="28" rx="6" fill="url(#logoGrad)"/>
+                        <path d="M8 10L14 7L20 10V18L14 21L8 18V10Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+                        <path d="M14 7V21M8 10L20 18M20 10L8 18" stroke="white" stroke-width="1" stroke-opacity="0.5"/>
+                        <defs>
+                            <linearGradient id="logoGrad" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#6366f1"/>
+                                <stop offset="100%" stop-color="#8b5cf6"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </span>
+                <span class="nav-title">yGuarder</span>
+                <span class="nav-badge">GUI</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#devsecops">DevSecOps</a></li>
+                <li><a href="#quickstart">Quick Start</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="https://github.com/TheCrimsonborn/yGuarder-GUI" target="_blank" class="btn btn-ghost">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    GitHub
+                </a>
+                <a href="https://github.com/TheCrimsonborn/yGuarder-GUI/releases/latest" target="_blank" class="btn btn-primary">
+                    Download
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                </a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="hero-grid"></div>
+            <div class="hero-glow glow-1"></div>
+            <div class="hero-glow glow-2"></div>
+            <div class="hero-glow glow-3"></div>
+        </div>
+        <div class="container hero-content">
+            <div class="hero-eyebrow">
+                <span class="eyebrow-dot"></span>
+                Powered by yGuard 5.0.0 · GPLv2 + MIT
+            </div>
+            <h1 class="hero-headline">
+                Protect Your Java Code<br>
+                <span class="gradient-text">Like a Professional</span>
+            </h1>
+            <p class="hero-subtext">
+                yGuarder GUI is a standalone, zero-dependency Java obfuscation tool with a modern dark-mode interface. 
+                Package, protect, and deploy — from your desktop to your CI/CD pipeline.
+            </p>
+            <div class="hero-actions">
+                <a href="https://github.com/TheCrimsonborn/yGuarder-GUI/releases/latest" target="_blank" class="btn btn-primary btn-lg">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                    Download Latest Release
+                </a>
+                <a href="#quickstart" class="btn btn-ghost btn-lg">
+                    Quick Start Guide
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-value">yGuard 5</span>
+                    <span class="stat-label">Engine</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-value">JavaFX 21</span>
+                    <span class="stat-label">UI Framework</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-value">Zero-Dep</span>
+                    <span class="stat-label">Portable</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-value">SonarQube</span>
+                    <span class="stat-label">Compliant</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- APP PREVIEW -->
+        <div class="hero-preview">
+            <div class="preview-window">
+                <div class="window-chrome">
+                    <div class="window-controls">
+                        <span class="wc-dot wc-red"></span>
+                        <span class="wc-dot wc-yellow"></span>
+                        <span class="wc-dot wc-green"></span>
+                    </div>
+                    <span class="window-title">yGuarder GUI — v1.0.0</span>
+                </div>
+                <div class="window-body">
+                    <!-- Mock App UI -->
+                    <div class="mock-app">
+                        <div class="mock-topbar">
+                            <div class="mock-input-group">
+                                <div class="mock-textfield" style="flex:1">
+                                    <span style="color:var(--text-muted)">JAR...</span>
+                                </div>
+                                <div class="mock-btn-accent">Select JAR</div>
+                            </div>
+                            <div class="mock-lang">English ▾</div>
+                        </div>
+                        <div class="mock-body">
+                            <div class="mock-sidebar">
+                                <div class="mock-section-title">Options</div>
+                                <div class="mock-info-label">Shrinking not supported in v5.0.0</div>
+                                <div class="mock-section-title" style="margin-top:1rem">Output Folder</div>
+                                <div class="mock-input-row">
+                                    <div class="mock-textfield" style="flex:1"><span style="color:var(--text-muted)">...</span></div>
+                                    <div class="mock-btn-sm">···</div>
+                                </div>
+                                <div class="mock-section-title" style="margin-top:1rem">Protect Attributes</div>
+                                <div class="mock-checkbox checked">✓ Line Numbers</div>
+                                <div class="mock-checkbox">☐ Source File Name</div>
+                                <div class="mock-checkbox">☐ Local Variables</div>
+                                <div class="mock-checkbox">☐ Deprecated Info</div>
+                                <div class="mock-section-title" style="margin-top:1rem">Advanced Hardening</div>
+                                <div class="mock-checkbox checked">✓ Obfuscate Class Strings</div>
+                                <div class="mock-label">Naming Scheme:</div>
+                                <div class="mock-select">mix-ascii ▾</div>
+                                <div class="mock-section-title" style="margin-top:1rem">External Libraries</div>
+                                <div class="mock-liblist"></div>
+                                <div class="mock-add-lib">+ Add Library</div>
+                            </div>
+                            <div class="mock-main">
+                                <div class="mock-tree-header">Select Packages to Keep (No-Renaming)</div>
+                                <div class="mock-tree">
+                                    <div class="mock-tree-item expanded">
+                                        <span class="mock-check checked"></span>
+                                        <span class="mock-icon">📦</span> com.example
+                                        <div class="mock-tree-children">
+                                            <div class="mock-tree-item">
+                                                <span class="mock-check checked"></span>
+                                                <span class="mock-icon">🔷</span> MainApp
+                                            </div>
+                                            <div class="mock-tree-item">
+                                                <span class="mock-check checked"></span>
+                                                <span class="mock-icon">🔷</span> MainController
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mock-tree-item">
+                                        <span class="mock-check"></span>
+                                        <span class="mock-icon">📦</span> com.example.core
+                                        <div class="mock-tree-children">
+                                            <div class="mock-tree-item">
+                                                <span class="mock-check"></span>
+                                                <span class="mock-icon">🔷</span> YGuardEngine
+                                            </div>
+                                            <div class="mock-tree-item">
+                                                <span class="mock-check"></span>
+                                                <span class="mock-icon">🔷</span> ObfuscationTask
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mock-tree-item">
+                                        <span class="mock-check"></span>
+                                        <span class="mock-icon">📦</span> com.example.util
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mock-footer">
+                            <div class="mock-logarea">
+                                <span class="mock-log-line"><span class="log-ts">[Thu Apr 17 08:34:11 2026]</span> <span class="log-success">Scanning JAR file...</span></span>
+                                <span class="mock-log-line"><span class="log-ts">[Thu Apr 17 08:34:12 2026]</span> Scanned 3 packages, 12 classes.</span>
+                                <span class="mock-log-line"><span class="log-ts">[Thu Apr 17 08:34:13 2026]</span> <span class="log-success">Obfuscation started.</span></span>
+                                <span class="mock-log-line--active"><span class="log-ts">[Thu Apr 17 08:34:14 2026]</span> <span class="log-done">✓ Complete → output-obf.jar</span></span>
+                            </div>
+                            <div class="mock-run-btn">▶ Obfuscate Now</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="preview-glow"></div>
+        </div>
+    </section>
+
+    <!-- BADGES -->
+    <section class="badges-bar">
+        <div class="container">
+            <div class="badges-row">
+                <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License">
+                <img src="https://img.shields.io/badge/JavaFX-21.0.2-blue.svg" alt="JavaFX 21.0.2">
+                <img src="https://img.shields.io/badge/yGuard-5.0.0-purple.svg" alt="yGuard 5.0.0">
+                <img src="https://img.shields.io/badge/DevSecOps-Ready-brightgreen.svg" alt="DevSecOps Ready">
+                <img src="https://img.shields.io/badge/SonarQube-Compliant-orange.svg" alt="SonarQube Compliant">
+                <img src="https://img.shields.io/badge/Docker-Supported-2496ED?logo=docker&logoColor=white" alt="Docker">
+                <img src="https://img.shields.io/badge/CI/CD-GitHub_Actions-2088FF?logo=github-actions&logoColor=white" alt="GitHub Actions">
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Core Capabilities</div>
+                <h2 class="section-title">Everything You Need to Protect Your Java IP</h2>
+                <p class="section-subtitle">Built for security engineers, DevSecOps teams, and developers who take code protection seriously.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card feature-card--highlight">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>Bytecode-Level Obfuscation</h3>
+                    <p>Powered by yGuard 5.0.0, the industry-trusted bytecode manipulation engine. Rename packages, classes, methods, and fields with advanced naming schemes including <code>mix-ascii</code> and <code>small</code>.</p>
+                    <div class="feature-tag">yGuard 5 Engine</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/><path d="M22 12a10 10 0 0 1-10 10A10 10 0 0 1 2 12a10 10 0 0 1 10-10A10 10 0 0 1 22 12z"/></svg>
+                    </div>
+                    <h3>Zero-Dependency Portable</h3>
+                    <p>Ships with a bundled Azul Zulu JRE 21 FX runtime. Double-click <code>run.bat</code> and go. No Java installation required on the host machine.</p>
+                    <div class="feature-tag">Portable</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6l9-4 9 4v6c0 5.25-3.75 10.15-9 11.25C6.75 22.15 3 17.25 3 12V6z"/><path d="M9 12l2 2 4-4"/></svg>
+                    </div>
+                    <h3>Granular Keep Rules</h3>
+                    <p>ASM 9.6-powered JAR introspection lets you control protection at the package, class, method, and field level — all from an interactive CheckBox tree view.</p>
+                    <div class="feature-tag">ASM 9.6</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                    </div>
+                    <h3>Modern Dark UI</h3>
+                    <p>Built with JavaFX 21 and AtlantaFX skin for a premium, pixel-perfect interface. Supports Turkish and English with dynamic language switching.</p>
+                    <div class="feature-tag">JavaFX 21 · AtlantaFX</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <h3>Docker & CI/CD Ready</h3>
+                    <p>Multi-stage Dockerfile, GitHub Actions workflows, and a GHCR-based image publishing pipeline included out of the box. Ship protected artifacts automatically.</p>
+                    <div class="feature-tag">DevSecOps</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+                    </div>
+                    <h3>Attribute & String Protection</h3>
+                    <p>Selectively strip or obfuscate debug attributes (LineNumberTable, SourceFile, LocalVariables) and class name strings to harden against reflection-based attacks.</p>
+                    <div class="feature-tag">Hardening</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Workflow</div>
+                <h2 class="section-title">From Source JAR to Protected Binary in 3 Steps</h2>
+            </div>
+            <div class="steps-row">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <div class="step-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    </div>
+                    <h3>Load Your JAR</h3>
+                    <p>Select your compiled JAR file. yGuarder instantly analyzes its bytecode using ASM 9.6 and displays all packages, classes, methods, and fields in a navigable tree.</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <div class="step-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>Configure Protection</h3>
+                    <p>Select which packages and classes to keep, choose a naming scheme, define external library dependencies, and configure attribute stripping options.</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <div class="step-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <h3>Obfuscate & Ship</h3>
+                    <p>Hit <strong>Obfuscate</strong>. The yGuard engine processes the bytecode and outputs a hardened JAR. The log console shows real-time progress and output path.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DEVSECOPS SECTION -->
+    <section class="devsecops" id="devsecops">
+        <div class="devsecops-bg">
+            <div class="ds-glow"></div>
+        </div>
+        <div class="container">
+            <div class="ds-grid">
+                <div class="ds-content">
+                    <div class="section-eyebrow">DevSecOps</div>
+                    <h2 class="section-title" style="text-align:left">Integrate Into Any Pipeline</h2>
+                    <p class="section-subtitle" style="text-align:left">yGuarder isn't just a desktop tool. Its <strong>Bridge Architecture</strong> cleanly separates the obfuscation engine from the UI, making it trivial to embed in automated workflows.</p>
+                    <div class="ds-features-list">
+                        <div class="ds-feature">
+                            <div class="ds-feature-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+                            </div>
+                            <div>
+                                <strong>Docker Multi-Stage Build</strong><br>
+                                <span>Maven build stage + minimal eclipse-temurin runtime. Published to GHCR automatically.</span>
+                            </div>
+                        </div>
+                        <div class="ds-feature">
+                            <div class="ds-feature-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                            </div>
+                            <div>
+                                <strong>GitHub Actions Workflows</strong><br>
+                                <span>Pre-built workflows for Docker publishing and release packaging on every push.</span>
+                            </div>
+                        </div>
+                        <div class="ds-feature">
+                            <div class="ds-feature-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                            </div>
+                            <div>
+                                <strong>Qodana Code Quality</strong><br>
+                                <span>Integrated Qodana analysis with custom inspection profiles for ongoing code quality monitoring.</span>
+                            </div>
+                        </div>
+                        <div class="ds-feature">
+                            <div class="ds-feature-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            </div>
+                            <div>
+                                <strong>SECURITY.md &amp; CVE Policy</strong><br>
+                                <span>Formal security policy, responsible disclosure process, and dependency CVE tracking built-in.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ds-code-panel">
+                    <div class="code-panel">
+                        <div class="code-panel-header">
+                            <div class="code-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="code-filename">docker-compose.yml</span>
+                            <button class="copy-btn" onclick="copyCode(this)" data-code="docker-compose">Copy</button>
+                        </div>
+<pre class="code-block"><code><span class="code-comment"># One-command containerized build</span>
+<span class="code-key">version:</span> <span class="code-str">'3.8'</span>
+<span class="code-key">services:</span>
+  <span class="code-key">yguarder:</span>
+    <span class="code-key">build:</span> <span class="code-str">.</span>
+    <span class="code-key">volumes:</span>
+      <span class="code-punct">-</span> <span class="code-str">./output:/app/output</span>
+    <span class="code-key">environment:</span>
+      <span class="code-punct">-</span> <span class="code-str">DISPLAY=:0</span></code></pre>
+                    </div>
+                    <div class="code-panel" style="margin-top: 1rem;">
+                        <div class="code-panel-header">
+                            <div class="code-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="code-filename">GitHub Actions</span>
+                        </div>
+<pre class="code-block"><code><span class="code-comment"># .github/workflows/docker-publish.yml</span>
+<span class="code-key">on:</span>
+  <span class="code-key">push:</span>
+    <span class="code-key">branches:</span> <span class="code-punct">[</span><span class="code-str">main</span><span class="code-punct">]</span>
+<span class="code-key">jobs:</span>
+  <span class="code-key">publish:</span>
+    <span class="code-key">runs-on:</span> <span class="code-str">ubuntu-latest</span>
+    <span class="code-key">steps:</span>
+      <span class="code-punct">-</span> <span class="code-key">uses:</span> <span class="code-str">actions/checkout@v4</span>
+      <span class="code-punct">-</span> <span class="code-key">uses:</span> <span class="code-str">docker/build-push-action@v6</span>
+        <span class="code-key">with:</span>
+          <span class="code-key">push:</span> <span class="code-str">true</span>
+          <span class="code-key">tags:</span> <span class="code-str">ghcr.io/${{'{{'}} github.repository {{'}}'}}</span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUICK START -->
+    <section class="quickstart" id="quickstart">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Quick Start</div>
+                <h2 class="section-title">Up and Running in Minutes</h2>
+            </div>
+            <div class="qs-tabs">
+                <button class="qs-tab active" id="tab-windows" onclick="switchTab('windows')">Windows (Portable)</button>
+                <button class="qs-tab" id="tab-docker" onclick="switchTab('docker')">Docker</button>
+                <button class="qs-tab" id="tab-maven" onclick="switchTab('maven')">Maven (Dev)</button>
+            </div>
+
+            <div class="qs-content active" id="panel-windows">
+                <div class="qs-steps">
+                    <div class="qs-step">
+                        <span class="qs-step-num">1</span>
+                        <div>
+                            <strong>Download the portable package</strong>
+                            <div class="code-inline-panel">
+                                <code>yGuarder-Portable-v1.0.0.zip</code>
+                                <a href="https://github.com/TheCrimsonborn/yGuarder-GUI/releases/latest" target="_blank" class="btn btn-xs">Download →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qs-step">
+                        <span class="qs-step-num">2</span>
+                        <div>
+                            <strong>Install the bundled Azul Zulu JRE 21 FX runtime</strong>
+                            <div class="code-panel" style="margin-top:0.5rem">
+                                <div class="code-panel-header">
+                                    <span class="code-filename">PowerShell</span>
+                                    <button class="copy-btn" onclick="copyCode(this)" data-text=".\install_runtime.ps1">Copy</button>
+                                </div>
+                                <pre class="code-block"><code>.\install_runtime.ps1</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qs-step">
+                        <span class="qs-step-num">3</span>
+                        <div>
+                            <strong>Launch the application</strong>
+                            <div class="code-panel" style="margin-top:0.5rem">
+                                <div class="code-panel-header">
+                                    <span class="code-filename">CMD / Explorer</span>
+                                </div>
+                                <pre class="code-block"><code>run.bat</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qs-content" id="panel-docker">
+                <div class="code-panel">
+                    <div class="code-panel-header">
+                        <div class="code-dots"><span></span><span></span><span></span></div>
+                        <span class="code-filename">Terminal</span>
+                        <button class="copy-btn" onclick="copyCode(this)" data-text="docker pull ghcr.io/thecrimsonborn/yguarder-gui:edge&#10;docker run --rm ghcr.io/thecrimsonborn/yguarder-gui:edge">Copy</button>
+                    </div>
+<pre class="code-block"><code><span class="code-comment"># Pull the pre-built image from GHCR</span>
+docker pull ghcr.io/thecrimsonborn/yguarder-gui:edge
+
+<span class="code-comment"># Or build & run locally with docker-compose</span>
+git clone https://github.com/TheCrimsonborn/yGuarder-GUI.git
+cd yGuarder-GUI
+docker-compose up --build</code></pre>
+                </div>
+            </div>
+
+            <div class="qs-content" id="panel-maven">
+                <div class="code-panel">
+                    <div class="code-panel-header">
+                        <div class="code-dots"><span></span><span></span><span></span></div>
+                        <span class="code-filename">PowerShell / Bash</span>
+                    </div>
+<pre class="code-block"><code><span class="code-comment"># 1. Clone the repository</span>
+git clone https://github.com/TheCrimsonborn/yGuarder-GUI.git
+cd yGuarder-GUI
+
+<span class="code-comment"># 2. Download all dependencies to ./lib</span>
+.\download_deps.ps1
+
+<span class="code-comment"># 3. Build the fat JAR</span>
+mvn clean package
+
+<span class="code-comment"># 4. Run (requires JavaFX-compatible JRE)</span>
+java -jar target/yguarder-gui-1.0-SNAPSHOT-all.jar</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARCHITECTURE -->
+    <section class="architecture">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Architecture</div>
+                <h2 class="section-title">The Bridge Architecture</h2>
+                <p class="section-subtitle">A clean separation between the UI layer and the obfuscation engine makes yGuarder extensible, testable, and pipeline-friendly.</p>
+            </div>
+            <div class="arch-diagram">
+                <div class="arch-layer arch-layer--ui">
+                    <div class="arch-layer-label">UI Layer</div>
+                    <div class="arch-components">
+                        <div class="arch-component">Main.java</div>
+                        <div class="arch-component">Launcher.java</div>
+                        <div class="arch-component">MainApp.java</div>
+                        <div class="arch-component arch-component--highlight">MainController.java</div>
+                    </div>
+                </div>
+                <div class="arch-bridge">
+                    <div class="arch-bridge-label">The Bridge</div>
+                    <div class="arch-bridge-arrow">
+                        <div class="bridge-line"></div>
+                        <div class="bridge-icons">
+                            <div class="bridge-icon">ObfuscationTask</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="arch-layer arch-layer--engine">
+                    <div class="arch-layer-label">Engine Layer</div>
+                    <div class="arch-components">
+                        <div class="arch-component arch-component--highlight">YGuardEngine.java</div>
+                        <div class="arch-component">JarInspector.java</div>
+                        <div class="arch-component">ObfuscationException</div>
+                        <div class="arch-component">yGuard 5 · ASM 9.6</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="nav-brand" style="margin-bottom:0.75rem">
+                        <span class="nav-logo">
+                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="28" height="28" rx="6" fill="url(#logoGrad2)"/>
+                                <path d="M8 10L14 7L20 10V18L14 21L8 18V10Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+                                <path d="M14 7V21M8 10L20 18M20 10L8 18" stroke="white" stroke-width="1" stroke-opacity="0.5"/>
+                                <defs>
+                                    <linearGradient id="logoGrad2" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#6366f1"/>
+                                        <stop offset="100%" stop-color="#8b5cf6"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </span>
+                        <span class="nav-title">yGuarder GUI</span>
+                    </div>
+                    <p style="color:var(--text-muted); font-size:0.875rem; max-width:280px">
+                        A professional, standalone Java obfuscation tool engineered for the DevSecOps community.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://github.com/TheCrimsonborn/yGuarder-GUI" target="_blank" class="social-link" aria-label="GitHub">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-links-group">
+                    <h4>Project</h4>
+                    <ul>
+                        <li><a href="https://github.com/TheCrimsonborn/yGuarder-GUI/releases" target="_blank">Releases</a></li>
+                        <li><a href="https://github.com/TheCrimsonborn/yGuarder-GUI/wiki" target="_blank">Wiki</a></li>
+                        <li><a href="https://github.com/TheCrimsonborn/yGuarder-GUI/issues" target="_blank">Issues</a></li>
+                        <li><a href="https://github.com/TheCrimsonborn/yGuarder-GUI/blob/main/SECURITY.md" target="_blank">Security Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-group">
+                    <h4>License</h4>
+                    <ul>
+                        <li><a href="https://github.com/TheCrimsonborn/yGuarder-GUI/blob/main/LICENSE" target="_blank">MIT (yGuarder)</a></li>
+                        <li><a href="https://github.com/TheCrimsonborn/yGuarder-GUI/blob/main/licenses/LICENSE-JavaFX.txt" target="_blank">GPLv2+CE (JavaFX)</a></li>
+                        <li><a href="https://github.com/TheCrimsonborn/yGuarder-GUI/blob/main/NOTICE" target="_blank">NOTICE</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-group">
+                    <h4>Third-Party</h4>
+                    <ul>
+                        <li><a href="https://www.yworks.com/products/yguard" target="_blank">yGuard by yWorks</a></li>
+                        <li><a href="https://openjfx.io" target="_blank">OpenJFX</a></li>
+                        <li><a href="https://github.com/mkpaz/atlantafx" target="_blank">AtlantaFX</a></li>
+                        <li><a href="https://www.azul.com/downloads/#zulu" target="_blank">Azul Zulu JRE</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 yGuarder Contributors &mdash; Released under the <a href="https://github.com/TheCrimsonborn/yGuarder-GUI/blob/main/LICENSE" target="_blank">MIT License</a></p>
+                <p>Built for the DevSecOps community with ❤</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

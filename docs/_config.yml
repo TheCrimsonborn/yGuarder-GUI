@@ -1,0 +1,5 @@
+theme: null
+title: yGuarder GUI
+description: Professional, standalone Java obfuscation tool powered by yGuard 5
+url: "https://thecrimsonborn.github.io"
+baseurl: "/yGuarder-GUI"
