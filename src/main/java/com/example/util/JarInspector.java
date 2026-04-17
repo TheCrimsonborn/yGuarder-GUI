@@ -19,13 +19,17 @@ public class JarInspector {
     }
 
     public static class ClassInfo {
-        public String name;
-        public List<String> methods = new ArrayList<>();
-        public List<String> fields = new ArrayList<>();
+        private final String name;
+        private final List<String> methods = new ArrayList<>();
+        private final List<String> fields = new ArrayList<>();
 
         public ClassInfo(String name) {
             this.name = name;
         }
+
+        public String getName() { return name; }
+        public List<String> getMethods() { return methods; }
+        public List<String> getFields() { return fields; }
     }
 
     public static Map<String, List<ClassInfo>> inspectJar(String jarPath) throws IOException {

@@ -130,12 +130,12 @@ public class MainController {
     }
 
     private CheckBoxTreeItem<String> buildClassItem(ClassInfo ci) {
-        CheckBoxTreeItem<String> classItem = new CheckBoxTreeItem<>("class:" + ci.name);
-        for (String m : ci.methods) {
-            classItem.getChildren().add(new CheckBoxTreeItem<>("method:" + ci.name + "#" + m));
+        CheckBoxTreeItem<String> classItem = new CheckBoxTreeItem<>("class:" + ci.getName());
+        for (String m : ci.getMethods()) {
+            classItem.getChildren().add(new CheckBoxTreeItem<>("method:" + ci.getName() + "#" + m));
         }
-        for (String f : ci.fields) {
-            classItem.getChildren().add(new CheckBoxTreeItem<>("field:" + ci.name + "#" + f));
+        for (String f : ci.getFields()) {
+            classItem.getChildren().add(new CheckBoxTreeItem<>("field:" + ci.getName() + "#" + f));
         }
         return classItem;
     }
